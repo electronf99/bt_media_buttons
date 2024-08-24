@@ -23,7 +23,7 @@
 
 // Change the below values if desired
 
-#define DEVICE_NAME "KTM SDKGT"
+#define DEVICE_NAME "SDKGT_Buttons"
 
 // Buttons
 
@@ -60,9 +60,8 @@ void setup() {
     pinMode(BUTTON_VOL_DOWN, INPUT_PULLUP);
 
     // start Bluetooth task
-    delay(2000);
     xTaskCreate(bluetoothTask, "bluetooth", 20000, NULL, 5, NULL);
-    delay(2000);
+
     Serial.print("BleStart: ");
     Serial.println();
 
@@ -121,14 +120,11 @@ void loop() {
           delay(20);
         }
         Serial.println("PLAY/PAUSE released");
-      } else {
-        Serial.println("Not Connected");
-        delay(100);
       }
 
 
     }
-    Serial.println("main loop");
+
     delay(100);
 }
 
@@ -247,7 +243,6 @@ class BleKeyboardCallbacks : public BLEServerCallbacks {
         //cccDesc->setNotifications(false);
 
         Serial.println("Client has disconnected");
-
     }
 };
 
