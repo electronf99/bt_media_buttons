@@ -50,7 +50,10 @@ void sendKey(int mediaButtton );
 bool isBleConnected = false;
 
 void setup() {
-    Serial.begin(115200);
+    
+    delay(10000);
+    
+    //Serial.begin(115200);
 
     // configure pin for buttons
     pinMode(BUTTON_PLAY_PREV, INPUT_PULLUP);
@@ -59,11 +62,12 @@ void setup() {
     pinMode(BUTTON_VOL_UP, INPUT_PULLUP);
     pinMode(BUTTON_VOL_DOWN, INPUT_PULLUP);
 
+
     // start Bluetooth task
     xTaskCreate(bluetoothTask, "bluetooth", 20000, NULL, 5, NULL);
 
-    Serial.print("BleStart: ");
-    Serial.println();
+    //Serial.print("BleStart: ");
+    //Serial.println();
 
 }
 
@@ -72,54 +76,54 @@ void loop() {
     if(isBleConnected) {
 
       if(digitalRead(BUTTON_PLAY_PREV) == LOW) {
-        Serial.println("PREV Pressed");
+        //Serial.println("PREV Pressed");
         sendKey(MEDIA_KEY_PREV);
         while(digitalRead(BUTTON_PLAY_PREV) == LOW) {
-          Serial.println("PREV Holding");
+          //Serial.println("PREV Holding");
           delay(20);
         }
-        Serial.println("PREV released");
+        //Serial.println("PREV released");
       }
 
       if(digitalRead(BUTTON_PLAY_NEXT) == LOW) {
-        Serial.println("NEXT Pressed");
+        //Serial.println("NEXT Pressed");
         sendKey(MEDIA_KEY_NEXT);
         while(digitalRead(BUTTON_PLAY_NEXT) == LOW) {
-          Serial.println("NEXT Holding");
+          //Serial.println("NEXT Holding");
           delay(20);
         }
-        Serial.println("NEXT released");
+        //Serial.println("NEXT released");
       }
 
       if(digitalRead(BUTTON_VOL_UP) == LOW) {
-        Serial.println("VOL UP Pressed");
+        //Serial.println("VOL UP Pressed");
         sendKey(MEDIA_KEY_VOL_UP);
         while(digitalRead(BUTTON_VOL_UP) == LOW) {
-          Serial.println("VOL UP Holding");
+          //Serial.println("VOL UP Holding");
           delay(20);
         }
-        Serial.println("VOL UP released");
+        //Serial.println("VOL UP released");
       }
 
       if(digitalRead(BUTTON_VOL_DOWN) == LOW) {
-        Serial.println("VOL DOWN Pressed");
+        //Serial.println("VOL DOWN Pressed");
         sendKey(MEDIA_KEY_VOL_DOWN);
         while(digitalRead(BUTTON_VOL_DOWN) == LOW) {
-          Serial.println("VOL DOWN Holding");
+          //Serial.println("VOL DOWN Holding");
           delay(20);
         }
-        Serial.println("VOL DOWN released");
+        //Serial.println("VOL DOWN released");
       }
 
 
       if(digitalRead(BUTTON_PLAY_PAUSE) == LOW) {
-        Serial.println("PLAY/PAUSE Pressed");
+        //Serial.println("PLAY/PAUSE Pressed");
         sendKey(MEDIA_KEY_PLAY_PAUSE);
         while(digitalRead(BUTTON_PLAY_PAUSE) == LOW) {
-          Serial.println("PLAY/PAUSE Holding");
+          //Serial.println("PLAY/PAUSE Holding");
           delay(20);
         }
-        Serial.println("PLAY/PAUSE released");
+        //Serial.println("PLAY/PAUSE released");
       }
 
 
@@ -232,7 +236,7 @@ class BleKeyboardCallbacks : public BLEServerCallbacks {
         //BLE2902* cccDesc = (BLE2902*)input->getDescriptorByUUID(NimBLEUUID((uint16_t)0x2902));
         //cccDesc->setNotifications(true);
 
-        Serial.println("Client has connected");
+        //Serial.println("Client has connected");
     }
 
     void onDisconnect(BLEServer* server) {
@@ -242,7 +246,7 @@ class BleKeyboardCallbacks : public BLEServerCallbacks {
         //BLE2902* cccDesc = (BLE2902*)input->getDescriptorByUUID(NimBLEUUID((uint16_t)0x2902));
         //cccDesc->setNotifications(false);
 
-        Serial.println("Client has disconnected");
+        //Serial.println("Client has disconnected");
     }
 };
 
@@ -264,9 +268,9 @@ class BleKeyboardCallbacks : public BLEServerCallbacks {
 //my_struct_t myStruct = pChr->getValue<my_struct_t>();
 
         
-        Serial.print("LED state: ");
-        Serial.print((int) report->leds);
-        Serial.println();
+        //Serial.print("LED state: ");
+        //Serial.print((int) report->leds);
+        //Serial.println();
     }
 };
 
@@ -309,7 +313,7 @@ void bluetoothTask(void*) {
     advertising->addServiceUUID(hid->batteryService()->getUUID());
     advertising->start();
 
-    Serial.println("BLE ready");
+    //Serial.println("BLE ready");
     delay(portMAX_DELAY);
 };
 
@@ -332,7 +336,7 @@ void sendKey(int mediaButton) {
     input->setValue((uint8_t*)&NO_KEY_PRESSED, sizeof(NO_KEY_PRESSED));
     input->notify();
 
-    printf("Sent\n");
+    //printf("Sent\n");
 
     delay(5);
 }
