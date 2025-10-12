@@ -1,1 +1,1 @@
-ESP32C Bluetooth Media Button Block for my Mototrbike (KTM)
+ESP32C Bluetooth Media Button Block for my Mototrbike
